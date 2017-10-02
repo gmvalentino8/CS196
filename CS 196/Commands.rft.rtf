@@ -1,0 +1,151 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1138\cocoasubrtf510
+{\fonttbl\f0\fnil\fcharset0 Monaco;}
+{\colortbl;\red255\green255\blue255;\red127\green0\blue85;\red63\green127\blue95;\red0\green0\blue192;
+\red42\green0\blue255;\red63\green95\blue191;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720
+
+\f0\fs22 \cf2 public\cf0  \cf2 class\cf0  Game \{\
+	\cf3 // Starting the Game\cf0 \
+	\cf2 public\cf0  \cf2 static\cf0  \cf2 void\cf0  main(String[] arg) \{\
+\
+		\cf3 // Creating the Players\cf0 \
+		Player p1 = \cf2 new\cf0  Player(0, 0, 90);\
+		Player p2 = \cf2 new\cf0  Player(4, 4, 270);\
+\
+		\cf3 // Giving Winning Conditions\cf0 \
+		\cf2 int\cf0  win1 = 0;\
+		\cf2 int\cf0  win2 = 0;\
+		\cf2 while\cf0  (win1 == 0 && win2 == 0) \{\
+\
+			\cf3 // Initializing Board\cf0 \
+			Commands.printboard(p1.\cf4 direction\cf0 , p1.\cf4 xposition\cf0 , p1.\cf4 yposition\cf0 , p2.\cf4 direction\cf0 ,\
+					p2.\cf4 xposition\cf0 , p2.\cf4 yposition\cf0 );\
+\
+			\cf3 // Gives Move List for Player 1\cf0 \
+			System.\cf4 out\cf0 \
+					.println(\cf5 "Player 1 Pick 5 Moves\\n1. Move\\n2. Turn Right\\n3. Turn Left\\n4. Turn Around\\n5. Attack"\cf0 );\
+			\cf2 int\cf0 [] moves1 = \cf2 new\cf0  \cf2 int\cf0 [5];\
+			moves1 = Commands.getmoves();\
+\
+			\cf3 // Give Move List for Player 2\cf0 \
+			System.\cf4 out\cf0 \
+					.println(\cf5 "Player 2 Pick 5 Moves\\n1. Move\\n2. Turn Right\\n3. Turn Left\\n4. Turn Around\\n5. Attack"\cf0 );\
+			\cf2 int\cf0 [] moves2 = \cf2 new\cf0  \cf2 int\cf0 [5];\
+			moves2 = Commands.getmoves();\
+\
+			\cf3 // Sets up One Turn with 5 Commands\cf0 \
+			\cf2 for\cf0  (\cf2 int\cf0  i = 0; i < 5; i++) \{\
+\
+				\cf3 // Tests if Moving into Another Player\cf0 \
+				\cf2 boolean\cf0 [] moveplayer = \cf2 new\cf0  \cf2 boolean\cf0 [5];\
+				moveplayer = Commands.testmoveplayer(moves1, moves2,\
+						p1.\cf4 direction\cf0 , p1.\cf4 xposition\cf0 , p1.\cf4 yposition\cf0 , p2.\cf4 direction\cf0 , p2.\cf4 xposition\cf0 ,\
+						p2.\cf4 yposition\cf0 );\
+\
+				\cf3 // Tests if Moving into a Wall for Player 1\cf0 \
+				\cf2 boolean\cf0 [] wall1 = \cf2 new\cf0  \cf2 boolean\cf0 [5];\
+				wall1 = Commands.testwall(moves1, p1.\cf4 direction\cf0 , p1.\cf4 xposition\cf0 ,\
+						p1.\cf4 yposition\cf0 );\
+\
+				\cf3 // Tests if Moving into a Wall for Player 2\cf0 \
+				\cf2 boolean\cf0 [] wall2 = \cf2 new\cf0  \cf2 boolean\cf0 [5];\
+				wall2 = Commands.testwall(moves2, p2.\cf4 direction\cf0 , p2.\cf4 xposition\cf0 ,\
+						p2.\cf4 yposition\cf0 );\
+\
+				\cf3 // Tests if Moving into Same Space\cf0 \
+				\cf2 boolean\cf0 [] movespace = \cf2 new\cf0  \cf2 boolean\cf0 [5];\
+				movespace = Commands.testmovespace(moves1, moves2,\
+						p1.\cf4 direction\cf0 , p1.\cf4 xposition\cf0 , p1.\cf4 yposition\cf0 , p2.\cf4 direction\cf0 , p2.\cf4 xposition\cf0 ,\
+						p2.\cf4 yposition\cf0 );\
+\
+				\cf3 // Tests if Attacking Each Other\cf0 \
+				\cf2 boolean\cf0 [] attacking = \cf2 new\cf0  \cf2 boolean\cf0 [5];\
+				attacking = Commands.testattacking(moves1, moves2,\
+						p1.\cf4 direction\cf0 , p1.\cf4 xposition\cf0 , p1.\cf4 yposition\cf0 , p2.\cf4 direction\cf0 , p2.\cf4 xposition\cf0 ,\
+						p2.\cf4 yposition\cf0 );\
+\
+				\cf3 // Tests if Move is Valid\cf0 \
+				\cf2 boolean\cf0 [] valid = \cf2 new\cf0  \cf2 boolean\cf0 [5];\
+				valid = Commands.testvalid(movespace, moveplayer, attacking);\
+\
+				\cf3 // Tests if Attack Connects\cf0 \
+				win1 = Commands.testattackconnect(moves1, moves2, p1.\cf4 direction\cf0 ,\
+						p1.\cf4 xposition\cf0 , p1.\cf4 yposition\cf0 , p2.\cf4 direction\cf0 , p2.\cf4 xposition\cf0 , p2.\cf4 yposition\cf0 );\
+\
+				\cf3 // Tests if Moving Into an Attack\cf0 \
+				win2 = Commands\
+						.testmoveattack(moves1, moves2, p1.\cf4 direction\cf0 , p1.\cf4 xposition\cf0 ,\
+								p1.\cf4 yposition\cf0 , p2.\cf4 direction\cf0 , p2.\cf4 xposition\cf0 , p2.\cf4 yposition\cf0 , valid);\
+\
+				\cf3 // Command to Move Players\cf0 \
+				\cf2 if\cf0  (moves1[i] == 1 && valid[i] == \cf2 true\cf0  && wall1[i] == \cf2 true\cf0 ) \{\
+					\cf2 if\cf0  (p1.\cf4 direction\cf0  == 0) \{\
+						p1.\cf4 yposition\cf0 --;\
+					\}\
+					\cf2 if\cf0  (p1.\cf4 direction\cf0  == 90) \{\
+						p1.\cf4 xposition\cf0 ++;\
+					\}\
+					\cf2 if\cf0  (p1.\cf4 direction\cf0  == 180) \{\
+						p1.\cf4 yposition\cf0 ++;\
+					\}\
+					\cf2 if\cf0  (p1.\cf4 direction\cf0  == 270) \{\
+						p1.\cf4 xposition\cf0 --;\
+					\}\
+				\}\
+\
+				\cf2 if\cf0  (moves2[i] == 1 && valid[i] == \cf2 true\cf0  && wall2[i] == \cf2 true\cf0 ) \{\
+					\cf2 if\cf0  (p2.\cf4 direction\cf0  == 0) \{\
+						p2.\cf4 yposition\cf0 --;\
+					\}\
+					\cf2 if\cf0  (p2.\cf4 direction\cf0  == 90) \{\
+						p2.\cf4 xposition\cf0 ++;\
+					\}\
+					\cf2 if\cf0  (p2.\cf4 direction\cf0  == 180) \{\
+						p2.\cf4 yposition\cf0 ++;\
+					\}\
+					\cf2 if\cf0  (p2.\cf4 direction\cf0  == 270) \{\
+						p2.\cf4 xposition\cf0 --;\
+					\}\
+				\}\
+\
+				\cf3 // Command to Turn Players Right\cf0 \
+				\cf2 if\cf0  (moves1[i] == 2 && valid[i] == \cf2 true\cf0 ) \{\
+					p1.\cf4 direction\cf0  = (p1.\cf4 direction\cf0  + 90) % 360;\
+				\}\
+				\cf2 if\cf0  (moves2[i] == 2 && valid[i] == \cf2 true\cf0 ) \{\
+					p2.\cf4 direction\cf0  = (p2.\cf4 direction\cf0  + 90) % 360;\
+				\}\
+\
+				\cf3 // Command to Turn Players Lefts\cf0 \
+				\cf2 if\cf0  (moves1[i] == 3 && valid[i] == \cf2 true\cf0 ) \{\
+					p1.\cf4 direction\cf0  = (p1.\cf4 direction\cf0  + 270) % 360;\
+				\}\
+				\cf2 if\cf0  (moves2[i] == 3 && valid[i] == \cf2 true\cf0 ) \{\
+					p2.\cf4 direction\cf0  = (p2.\cf4 direction\cf0  + 270) % 360;\
+				\}\
+\
+				\cf3 // Command to Turn Players Around\cf0 \
+				\cf2 if\cf0  (moves1[i] == 4 && valid[i] == \cf2 true\cf0 ) \{\
+					p1.\cf4 direction\cf0  = (p1.\cf4 direction\cf0  + 180) % 360;\
+				\}\
+				\cf2 if\cf0  (moves2[i] == 4 && valid[i] == \cf2 true\cf0 ) \{\
+					p2.\cf4 direction\cf0  = (p2.\cf4 direction\cf0  + 180) % 360;\
+				\}\
+\
+				\cf3 //For Debugging\cf0 \
+				\cf6 /** Commands.printboard(p1.direction, p1.\ul xposition\ulnone , p1.\ul yposition\ulnone , p2.direction,\cf0 \
+\pard\pardeftab720
+\cf6 						p2.\ul xposition\ulnone , p2.\ul yposition\ulnone );\cf0 \
+\cf6 				System.out.print(valid[i]);				\cf0 \
+\cf6 				System.out.print(\ul movespace\ulnone [i]);\cf0 \
+\cf6 				System.out.print(\ul moveplayer\ulnone [i]);\cf0 \
+\cf6 				System.out.println(attacking[i]);\cf0 \
+\cf6 				*/\cf0 \
+			\}\
+		\}\
+		System.\cf4 out\cf0 .print(\cf5 "Player "\cf0  + (win1 + win2) + \cf5 " wins!"\cf0 );\
+	\}\
+\}\
+}

@@ -1,0 +1,162 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:onClick="OnClick"
+    android:orientation="vertical"
+    tools:context=".MainGame" >
+        
+	    <com.example.drawing.GameBoard
+	        android:id="@+id/the_canvas"
+	        android:layout_width="match_parent"
+	        android:layout_height="350dp"
+	        android:layout_weight="0.18" />
+
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="0dp"
+	        android:layout_weight="1"
+	        android:orientation="horizontal" >
+			
+	        <LinearLayout
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            android:orientation="vertical">
+	            
+	             <View
+		        	android:layout_width="match_parent"
+		        	android:layout_height="0dp"
+		        	android:layout_weight="2" />
+	             
+	             <Button
+	                 android:layout_width="match_parent"
+	                 android:layout_height="0dp"
+	                 android:layout_weight="1"
+	                 android:onClick="CancelLastMove"
+	                 android:text="@string/button_cancel" />
+	             
+	             <View
+	                 android:layout_width="match_parent"
+	                 android:layout_height="0dp"
+	                 android:layout_weight="1" />
+	            
+	        </LinearLayout>
+	        
+	        <LinearLayout
+		        android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            android:orientation="vertical">
+	        	
+	            <View
+	                 android:layout_width="match_parent"
+	                 android:layout_height="0dp"
+	                 android:layout_weight="1" />
+	            
+		        <Button
+		            android:layout_width="match_parent"
+		            android:layout_height="0dp"
+		            android:layout_weight="1"
+		            android:onClick="turnLeft"
+		            android:text="@string/button_turnLeft" />
+		        
+		        <View
+	                 android:layout_width="match_parent"
+	                 android:layout_height="0dp"
+	                 android:layout_weight="1" />
+		        
+		        <View
+	                 android:layout_width="match_parent"
+	                 android:layout_height="0dp"
+	                 android:layout_weight="1" />
+	        
+	        </LinearLayout>
+			
+	        <LinearLayout
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            android:orientation="vertical">
+
+	            <Button
+	                android:layout_width="match_parent"
+	                android:layout_height="0dp"
+	                android:layout_weight="1"
+	                android:onClick="move"
+	                android:text="@string/button_forward" />
+
+	            <Button
+	                android:layout_width="match_parent"
+	                android:layout_height="0dp"
+	                android:layout_weight="1"
+	                android:onClick="attack"
+	                android:text="@string/button_attack" />
+
+	            <Button
+	                android:layout_width="match_parent"
+	                android:layout_height="0dp"
+	                android:layout_weight="1"
+	                android:onClick="turnAround"
+	                android:text="@string/button_turnAround" />
+
+	            <View
+	                 android:layout_width="match_parent"
+	                 android:layout_height="0dp"
+	                 android:layout_weight="1" />
+	            
+	            
+	        </LinearLayout>
+
+	        <LinearLayout
+	            android:layout_width="0dp"
+	            android:layout_height="52dp"
+	            android:layout_weight="0.99"
+	            android:orientation="horizontal" >
+
+	            <Button
+	                android:layout_width="match_parent"
+	                android:layout_height="match_parent"
+	                android:onClick="turnRight"
+	                android:text="turn right" />
+
+	        </LinearLayout>
+			
+	        <LinearLayout
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            android:orientation="vertical">
+		        
+	            <TextView
+	                android:layout_width="match_parent"
+	                android:layout_height="0dp"
+	                android:layout_weight="1"
+	                android:text="1" 
+	                android:textSize="40sp" />
+	            
+	             <View
+	                 android:layout_width="match_parent"
+	                 android:layout_height="0dp"
+	                 android:layout_weight="1" />
+	             
+	             <Button
+	                 android:id="@+id/movingtestright1"
+	                 android:layout_width="match_parent"
+	                 android:layout_height="0dp"
+	                 android:layout_weight="1"
+	                 android:onClick="confirm"
+	                 android:text="@string/button_confirm" />
+	             
+	             <View
+	                 android:layout_width="match_parent"
+	                 android:layout_height="0dp"
+	                 android:layout_weight="1" />
+	                    
+	        </LinearLayout>
+	        
+
+	        
+	    </LinearLayout>
+
+</LinearLayout>
